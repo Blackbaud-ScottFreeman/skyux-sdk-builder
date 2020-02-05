@@ -2,6 +2,15 @@
 'use strict';
 
 /**
+ * Wrapping require.resolve to make it easier to mock during unit tests.
+ * (It's dangerous to mock the `require` methods.)
+ * See: https://github.com/thlorenz/proxyquire/issues/77#issuecomment-406365452
+ */
+function resolveModule(packageName) {
+  return require.resolve(packageName);
+}
+
+/**
  * Spawns the skyux pact command.
  * @name pact
  */
@@ -22,6 +31,15 @@ function pact(command, argv) {
 
   argv = argv || process.argv;
   argv.command = command;
+
+  try {
+    resolveModule('@skyux-sdk/pact');
+  } catch (e) {
+    logger.error(
+      'skyux pact failed! Please run `npm install --save-exact --save-dev @skyux-sdk/pact` and try again.'
+    );
+    return;
+  }
 
   // get a free port for every config entry, plus one for the proxy
   if (!skyPagesConfig.skyux.pacts) {
