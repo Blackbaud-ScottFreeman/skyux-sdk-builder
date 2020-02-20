@@ -71,8 +71,12 @@ function getWebpackConfig(skyPagesConfig, argv = {}) {
       skyux: skyPagesConfig.skyux
     }),
 
+    // The `ngDevMode` property is defined by Angular CLI during a production build.
+    // We need to set it to 'false' to get the build to pass.
+    // See: https://github.com/angular/angular/issues/31595#issuecomment-519083266
     new webpack.DefinePlugin({
-      'skyPagesConfig': JSON.stringify(skyPagesConfig)
+      'skyPagesConfig': JSON.stringify(skyPagesConfig),
+      'ngDevMode': false
     }),
 
     new LoaderOptionsPlugin({
@@ -161,7 +165,13 @@ function getWebpackConfig(skyPagesConfig, argv = {}) {
           test: /\.s?css$/,
           use: [
             'raw-loader',
-            'sass-loader'
+            {
+              loader: 'sass-loader',
+              options: {
+                // Prefer dart sass.
+                implementation: require('sass')
+              }
+            }
           ]
         },
         {
