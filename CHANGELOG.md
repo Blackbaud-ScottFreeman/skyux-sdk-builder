@@ -1,4 +1,13 @@
+# 4.0.0-rc.2 (2020-02-21)
+
+### New features
+
+- Added support for the [Angular Ivy Compiler](https://angular.io/guide/ivy). Ivy is enabled by default; if you wish to disable Ivy during `skyux build`, set `enableIvy` to `false` in your project's `skyuxconfig.json` file. [#218](https://github.com/blackbaud/skyux-sdk-builder/pull/218)
+- Added support for `@skyux/config@4.0.0-rc.1`. [#218](https://github.com/blackbaud/skyux-sdk-builder/pull/218)
+
 # 3.15.1 (2020-02-20)
+
+### Bug fixes
 
 - Updated the Karma configuration to correctly proxy files from `~/assets` during `skyux test` and `skyux watch`. [#214](https://github.com/blackbaud/skyux-sdk-builder/pull/214)
 
@@ -34,7 +43,7 @@
 - Dropped support for `SkyAuthHttp` (found in `@skyux/http`). We recommend using Angular's `HttpClient` (found in `@angular/common/http`) and importing the `SkyAuthHttpClientModule` (found in `@skyux/http`) to implement features such as Blackbaud authentication. [#181](https://github.com/blackbaud/skyux-sdk-builder/pull/181)
 - Dropped support for `rxjs-compat`. If you still wish to support `rxjs@<6`, install `rxjs-compat` as a development dependency of your SPA or library. [#181](https://github.com/blackbaud/skyux-sdk-builder/pull/181)
 - Removed the `SkyAppRuntimeModule` from Builder's `runtime` directory. You can directly import the modules that it exports (`SkyAppLinkModule` and `SkyI18nModule`) as needed. [#181](https://github.com/blackbaud/skyux-sdk-builder/pull/181)
-- Added support for `jasmine@3.5.0` (`3.5.0`), which may cause failures in some asynchronous tests that previously passed if you do not denote them as `async` in the `it` block. [#152](https://github.com/blackbaud/skyux-sdk-builder/pull/152)
+- Added support for `jasmine@3.5.0` (`3.5.0`), which may cause failures in some asynchronous tests that previously passed if you do not denote them as `async` in the `it` block. Also, "focused" tests (`fit` and `fdescribe`) will now fail builds. [#152](https://github.com/blackbaud/skyux-sdk-builder/pull/152)
 
 # 3.15.0 (2020-02-12)
 
